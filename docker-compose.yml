@@ -1,0 +1,38 @@
+services:
+  app:    ##  サービス名
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile 
+    env_file:
+      - .env  ##  ルートにある.envをコンテナに転送
+    volumes:
+      - ./src/:/var/www/html  ##  一般的なパスに合わせる
+  
+  web:    ##  サービス名
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - 8081:80
+    depends_on:
+      - app
+    volumes:
+      - ./src/:/var/www/html 
+
+  db:   ##  サービス名
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - mysql-volume:/var/lib/mysql
+
+volumes:
+  mysql-volume:

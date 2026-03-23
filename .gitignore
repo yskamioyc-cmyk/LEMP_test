@@ -1,0 +1,29 @@
+# --- Laravel 核心部 ---
+/src/vendor/
+/src/.env
+.env
+.env.backup
+.env.production
+
+# --- Laravel 実行時キャッシュ・ログ ---
+/src/storage/framework/cache/data/*
+/src/storage/framework/sessions/*
+/src/storage/framework/views/*
+/src/storage/logs/*
+/src/bootstrap/cache/*
+/src/public/storage
+
+# --- データベース関連 ---
+# 名前付きボリュームを使っている場合は不要ですが、将来的にディレクトリマウントした時用
+*.sql
+*.sqlite
+
+# --- Docker / システム ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- その他 ---
+node_modules/
+npm-debug.log
